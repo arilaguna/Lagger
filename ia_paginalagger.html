@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LAGGER — Especialistas en Clutch, Frenos y Aire</title>
+  <meta name="description" content="Taller mecánico especializado en clutch, frenos y frenos de aire para transporte ligero y pesado. Diagnóstico preciso, garantía y atención por WhatsApp." />
+  <style>
+    :root{
+      --rojo:#D32F2F; /* Rojo LAGGER */
+      --azul:#0D1B2A; /* Azul marino */
+      --gris-900:#2C2C2C;
+      --gris-200:#F2F2F2;
+      --blanco:#FFFFFF;
+      --accent:#1976D2; /* acentos suaves */
+      --success:#2e7d32;
+      --warning:#ed6c02;
+      --radius:16px;
+      --shadow:0 10px 25px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--gris-200);color:var(--gris-900);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1100px,92%);margin-inline:auto}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#fff,rgba(255,255,255,.95));backdrop-filter:saturate(180%) blur(6px);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .brand img{width:44px;height:44px;object-fit:contain;border-radius:10px;border:1px solid #eee;background:#fff}
+    .brand .title{font-weight:800;color:var(--azul)}
+    nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+    nav a{padding:.5rem .75rem;border-radius:10px;color:var(--azul)}
+    nav a:hover{background:var(--gris-200)}
+    .menu-toggle{display:none}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;padding:2rem 0}
+    .badge{display:inline-block;background:var(--rojo);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem;letter-spacing:.3px}
+    .hero h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;margin:.6rem 0;color:var(--azul)}
+    .hero p{font-size:1.05rem;color:#334}
+    .cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .btn{border:0;padding:.8rem 1rem;border-radius:12px;cursor:pointer;font-weight:700;box-shadow:var(--shadow);transition:transform .12s ease, box-shadow .12s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(0,0,0,.12)}
+    .btn-primary{background:var(--rojo);color:#fff}
+    .btn-secondary{background:#fff;color:var(--azul);border:1px solid #e5e7eb}
+
+    .hero-media{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.2));}
+
+    /* Section */
+    section{padding:2rem 0}
+    h2{color:var(--azul);margin:0 0 1rem 0}
+    .grid{display:grid;gap:1rem}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+
+    /* Cards */
+    .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem}
+    .card h3{margin:.25rem 0;color:var(--azul)}
+    .pill{display:inline-block;padding:.15rem .5rem;border-radius:999px;background:#eef2ff;color:#334}
+
+    /* Tabs Servicios */
+    .tabs{display:flex;gap:.5rem;margin-bottom:1rem}
+    .tab{flex:1;text-align:center;background:#fff;border:1px solid #e5e7eb;padding:.6rem;border-radius:12px;cursor:pointer;font-weight:700;color:#334}
+    .tab.active{background:var(--azul);color:#fff;border-color:var(--azul)}
+
+    /* Árbol de decisión */
+    .tree{display:grid;gap:.75rem}
+    .tree select,.tree textarea,.tree input{width:100%;padding:.75rem;border-radius:12px;border:1px solid #e5e7eb}
+    .alert{border-left:6px solid var(--warning);background:#fff8e1;padding:.8rem 1rem;border-radius:10px}
+    .success{border-left:6px solid var(--success);background:#e8f5e9}
+
+    /* FAQ */
+    .search{position:relative}
+    .search input{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid #e5e7eb}
+    .accordion{display:grid;gap:.5rem}
+    details{background:#fff;border-radius:12px;padding:.6rem 1rem;border:1px solid #e5e7eb}
+    details[open]{border-color:#d0d7de}
+    summary{cursor:pointer;font-weight:700;color:var(--azul)}
+
+    /* Formulario */
+    form{display:grid;gap:.75rem}
+    label{font-weight:600}
+    input,select,textarea{padding:.75rem;border-radius:12px;border:1px solid #e5e7eb}
+    .row{display:grid;gap:.75rem;grid-template-columns:repeat(2,1fr)}
+    .help{font-size:.9rem;color:#555}
+    .status{font-weight:700}
+
+    /* Footer & floating WA */
+    footer{padding:2rem 0;color:#445}
+    .floating-wa{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;border-radius:999px;padding:.9rem 1.1rem;font-weight:800;box-shadow:0 12px 26px rgba(0,0,0,.18);z-index:60}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      nav ul{display:none}
+      .menu-toggle{display:block;border:1px solid #e5e7eb;background:#fff;border-radius:10px;padding:.4rem .6rem;color:var(--azul);font-weight:700}
+      .nav.open ul{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:#fff;padding:1rem;border-bottom:1px solid #eee}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav" id="topNav">
+      <div class="brand">
+        <!-- LOGO_PLACEHOLDER -->
+        <img src="PLACEHOLDER_logo.png" alt="Logo LAGGER" loading="lazy" />
+        <span class="title">LAGGER</span>
+      </div>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menú</button>
+      <nav aria-label="Principal">
+        <ul id="menu">
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#okcar">OK CAR</a></li>
+          <li><a href="#diagnostico">Diagnóstico</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#cita">Agendar</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div>
+      <span class="badge">Especialistas en clutch, frenos y aire</span>
+      <h1>Diagnóstico preciso, garantía escrita y atención por WhatsApp</h1>
+      <p>Transporte ligero y pesado. Mano de obra especializada, refacciones de calidad y tiempos eficientes. ¡Agenda tu servicio hoy!</p>
+      <div class="cta">
+        <a class="btn btn-primary" id="ctaWhatsAppTop" href="#" target="_blank" rel="noopener">Agendar por WhatsApp</a>
+        <a class="btn btn-secondary" href="#cita">Reservar con formulario</a>
+      </div>
+      <div class="help">Horario: Lun–Vie 9:00–18:00 · Sáb 9:00–14:00 · Tultitlán, Edo. Méx.</div>
+    </div>
+    <figure class="hero-media" aria-label="Foto del taller">
+      <!-- HERO_IMG_PLACEHOLDER -->
+      <img src="PLACEHOLDER_hero.jpg" alt="Taller LAGGER, área de servicio" loading="lazy" />
+    </figure>
+  </section>
+
+  <!-- Por qué elegirnos -->
+  <section class="container">
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Diagnóstico por sistema</h3>
+        <p>Evaluación clara de clutch, frenos, frenos de aire y suspensión. Presupuestos justos y sin sorpresas.</p>
+      </div>
+      <div class="card">
+        <h3>Garantía escrita</h3>
+        <p>Respaldo en mano de obra y piezas seleccionadas. Transparencia de principio a fin.</p>
+      </div>
+      <div class="card">
+        <h3>Atención ágil</h3>
+        <p>WhatsApp, seguimiento y opciones de servicio a domicilio para pesado y rescates en ZMVM.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="container">
+    <h2>Servicios</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="ligero">Transporte ligero</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="pesado">Transporte pesado</button>
+    </div>
+    <div id="serviciosWrap" class="grid grid-3" aria-live="polite"></div>
+    <!-- GALLERY_PLACEHOLDER: inserta fotos de trabajos -->
+  </section>
+
+  <!-- OK CAR -->
+  <section id="okcar" class="container">
+    <h2>OK CAR: historial y alertas preventivas</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Control total</h3>
+        <p>Historial de servicios, recordatorios por kilometraje y recomendaciones preventivas para ahorrar imprevistos.</p>
+        <ul>
+          <li>Registro por placas o económico</li>
+          <li>Alertas de mantenimiento</li>
+          <li>Checklist de recepción</li>
+        </ul>
+      </div>
+      <div class="card">
+        <!-- OKCAR_IMG_PLACEHOLDER -->
+        <img src="PLACEHOLDER_okcar.jpg" alt="Ejemplo de historial y alertas" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Árbol de decisión por síntomas -->
+  <section id="diagnostico" class="container">
+    <h2>Diagnóstico rápido por síntomas</h2>
+    <div class="tree card">
+      <div class="row">
+        <div>
+          <label for="cat">Sistema</label>
+          <select id="cat">
+            <option value="">Selecciona…</option>
+            <option value="clutch">Clutch</option>
+            <option value="frenos">Frenos</option>
+            <option value="frenos_aire">Frenos de aire (pesado)</option>
+            <option value="suspension">Suspensión</option>
+          </select>
+        </div>
+        <div>
+          <label for="sym">Síntoma principal</label>
+          <select id="sym" disabled>
+            <option value="">Selecciona un sistema…</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="desc">Describe brevemente (opcional)</label>
+        <textarea id="desc" rows="3" placeholder="Ej. vibra al frenar arriba de 80 km/h, pedal se siente esponjoso…"></textarea>
+      </div>
+      <div id="treeOut" class="alert" hidden></div>
+      <div>
+        <button class="btn btn-primary" id="treeCTA">Quiero agendar diagnóstico</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container">
+    <h2>Preguntas frecuentes</h2>
+    <div class="search">
+      <input id="faqSearch" type="search" placeholder="Busca por tema: clutch, frenos, aire, suspensión…" />
+    </div>
+    <div id="faqList" class="accordion" aria-live="polite" style="margin-top:1rem"></div>
+  </section>
+
+  <!-- Cita / Formulario -->
+  <section id="cita" class="container">
+    <h2>Agenda tu cita</h2>
+    <form id="formCita" class="card" novalidate>
+      <div class="row">
+        <div>
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" name="nombre_cliente" type="text" required placeholder="Ariana Laguna" />
+        </div>
+        <div>
+          <label for="tel">WhatsApp</label>
+          <input id="tel" name="telefono_whatsapp" type="tel" required placeholder="55 0000 0000" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="tipo">Tipo de transporte</label>
+          <select id="tipo" name="tipo_transporte" required>
+            <option value="">Selecciona…</option>
+            <option>ligero</option>
+            <option>pesado</option>
+          </select>
+        </div>
+        <div>
+          <label for="sistema">Sistema</label>
+          <select id="sistema" name="sistema" required>
+            <option value="">Selecciona…</option>
+            <option>clutch</option>
+            <option>frenos</option>
+            <option>frenos_aire</option>
+            <option>suspension</option>
+            <option>mantenimiento</option>
+            <option>otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="marca">Marca/Modelo/Año</label>
+          <input id="marca" name="marca_modelo_anio" type="text" placeholder="Kenworth T680 2022 / Versa 2019" />
+        </div>
+        <div>
+          <label for="placas">Placas o económico</label>
+          <input id="placas" name="placas_o_economico" type="text" placeholder="ABC-123 / ECO-45" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="km">Kilometraje aprox.</label>
+          <input id="km" name="km_aprox" type="number" inputmode="numeric" placeholder="150000" />
+        </div>
+        <div>
+          <label for="origen">¿Cómo nos encontraste?</label>
+          <select id="origen" name="origen_contacto">
+            <option>web</option>
+            <option>whatsapp</option>
+            <option>facebook</option>
+            <option>instagram</option>
+            <option>referido</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="fecha">Fecha preferida</label>
+          <input id="fecha" name="preferencia_cita_fecha" type="date" />
+        </div>
+        <div>
+          <label for="hora">Hora preferida</label>
+          <input id="hora" name="preferencia_cita_hora" type="time" />
+        </div>
+      </div>
+      <div>
+        <label for="sintoma">Síntoma principal</label>
+        <input id="sintoma" name="sintoma_principal" type="text" placeholder="Ej. vibra al frenar, patina el clutch…" />
+      </div>
+      <div>
+        <label for="desc2">Descripción</label>
+        <textarea id="desc2" name="descripcion_detalle" rows="3" placeholder="Cuéntanos más para diagnosticar mejor"></textarea>
+      </div>
+      <div class="row">
+        <div>
+          <label for="extras">Servicios extra</label>
+          <select id="extras" name="servicios_extra">
+            <option value="">Ninguno</option>
+            <option>traslado</option>
+            <option>domicilio_pesado</option>
+            <option>rescates</option>
+          </select>
+        </div>
+        <div>
+          <label for="consent">
+            <input id="consent" type="checkbox" required /> Autorizo ser contactada/o por WhatsApp
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Enviar solicitud</button>
+        <span class="status" id="formStatus" aria-live="polite"></span>
+      </div>
+      <p class="help">Tus datos se usan solo para agendar y dar seguimiento. Puedes solicitar su eliminación en cualquier momento.</p>
+    </form>
+  </section>
+
+  <!-- Contacto / Ubicación -->
+  <section id="contacto" class="container">
+    <h2>Contacto y ubicación</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Comunícate</h3>
+        <p><strong>Tel:</strong> 55 7515 4446 · 55 7312 6969</p>
+        <p><strong>Correo:</strong> ventas@cyf-lagger.com.mx</p>
+        <p><strong>Dirección:</strong> Av. Estado de México #164, Col. Bello Horizonte, C.P. 54948, Tultitlán, Edo. Méx.</p>
+        <p>Horario: Lun–Vie 9:00–18:00 · Sáb 9:00–14:00</p>
+      </div>
+      <div class="card">
+        <!-- MAP_IFRAME_PLACEHOLDER: pega aquí tu iframe de Google Maps -->
+        <div style="aspect-ratio:16/9;background:#e5e7eb;border-radius:12px;display:grid;place-items:center;color:#667">Mapa del taller (inserta tu iframe)</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div class="grid grid-2">
+      <div>
+        <strong>LAGGER</strong> — Especialistas en clutch, frenos y aire · Transporte ligero y pesado
+        <div style="margin-top:.5rem">© <span id="year"></span> · Aviso de privacidad · Instagram · Facebook</div>
+      </div>
+      <div style="text-align:right">
+        <span class="pill">Hecho con ♥ para tus viajes seguros</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="floating-wa" id="floatingWA" href="#" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">WhatsApp</a>
+
+  <script>
+    // ======= CONFIG EDITABLE =======
+    const CONFIG = {
+      WHATSAPP_TEL: '525575154446', // Reemplaza con tu número a 12 dígitos (incl. 52)
+      GOOGLE_SCRIPT_URL: 'https://SCRIPT_URL_DE_TU_APPS_SCRIPT', // Reemplaza por tu endpoint de Google Sheets
+    };
+
+    // ======= MENÚ MÓVIL =======
+    const nav = document.getElementById('topNav');
+    const toggle = nav.querySelector('.menu-toggle');
+    toggle.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    // ======= SERVICIOS (datos + render) =======
+    const servicios = {
+      ligero:[
+        {titulo:'Clutch', img:'PLACEHOLDER_srv_ligero_clutch.jpg', items:['Reconstrucción / reemplazo','Rectificado de volante','Collarín y horquilla','Ajuste de pedal y chicote']},
+        {titulo:'Frenos', img:'PLACEHOLDER_srv_ligero_frenos.jpg', items:['Cambio de balatas','Rectificado de discos/tambores','Purgado de sistema','Revisión de fugas']},
+        {titulo:'Suspensión', img:'PLACEHOLDER_srv_ligero_suspension.jpg', items:['Amortiguadores y bujes','Alineación recomendada','Ruidos en baches','Desgaste irregular de llantas']},
+        {titulo:'Mantenimiento', img:'PLACEHOLDER_srv_ligero_mant.jpg', items:['Cambio de aceite y filtros','Bujías y correas','Lavado de inyectores','Escaneo preventivo']},
+      ],
+      pesado:[
+        {titulo:'Clutch pesado', img:'PLACEHOLDER_srv_pesado_clutch.jpg', items:['Reemplazo / reconstrucción','Rectificado de volante','Revisión de transmisión','Bujes / horquilla / collarín']},
+        {titulo:'Frenos pesados', img:'PLACEHOLDER_srv_pesado_frenos.jpg', items:['Balatas y tambores','Mantenimiento de masas y retenes','Ajuste de matracas','Limpieza y engrase']},
+        {titulo:'Frenos de aire', img:'PLACEHOLDER_srv_pesado_aire.jpg', items:['Compresores y válvulas','Rotochambers y secadores','Bolsas de aire y líneas','Tanques y detección de fugas']},
+      ]
+    };
+
+    const tabBtns = document.querySelectorAll('.tab');
+    const srvWrap = document.getElementById('serviciosWrap');
+    function renderServicios(tipo='ligero'){
+      srvWrap.innerHTML = servicios[tipo].map(card=>`
+        <article class="card">
+          <img src="${card.img}" alt="${card.titulo}" loading="lazy" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover;background:#eee" />
+          <h3>${card.titulo}</h3>
+          <ul>${card.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+        </article>
+      `).join('');
+    }
+    renderServicios('ligero');
+    tabBtns.forEach(btn=>btn.addEventListener('click',()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderServicios(btn.dataset.tab);
+    }));
+
+    // ======= ÁRBOL DE DECISIÓN =======
+    const sintomas = {
+      clutch:[
+        {v:'patina', t:'Patina al acelerar'},
+        {v:'vibra', t:'Vibra al arrancar'},
+        {v:'pedal', t:'Pedal esponjoso/duro'},
+        {v:'olor', t:'Olor a quemado'},
+        {v:'velocidades', t:'Cuesta entrar velocidades'}
+      ],
+      frenos:[
+        {v:'chirrido', t:'Chirridos al frenar'},
+        {v:'vibracion', t:'Vibración en volante'},
+        {v:'pedal', t:'Pedal esponjoso/duro'},
+        {v:'luz', t:'Luz de advertencia'},
+        {v:'distancia', t:'Mayor distancia de frenado'}
+      ],
+      frenos_aire:[
+        {v:'respuesta', t:'Respuesta lenta'},
+        {v:'fuga', t:'Posible fuga de aire'},
+        {v:'ruidos', t:'Ruidos en frenado'},
+        {v:'vibracion', t:'Vibraciones a alta carga'}
+      ],
+      suspension:[
+        {v:'inclina', t:'Se inclina al girar'},
+        {v:'rebota', t:'Rebota/tambalea'},
+        {v:'ruidos', t:'Ruidos en baches'},
+        {v:'llantas', t:'Desgaste irregular de llantas'}
+      ]
+    }
+    const catSel = document.getElementById('cat');
+    const symSel = document.getElementById('sym');
+    const treeOut = document.getElementById('treeOut');
+    const desc = document.getElementById('desc');
+
+    catSel.addEventListener('change',()=>{
+      const v = catSel.value;
+      symSel.innerHTML = '<option value="">Selecciona…</option>' + (sintomas[v]||[]).map(o=>`<option value="${o.v}">${o.t}</option>`).join('');
+      symSel.disabled = !v;
+      treeOut.hidden = true;
+    });
+
+    symSel.addEventListener('change',()=>{
+      if(!catSel.value || !symSel.value){treeOut.hidden=true;return}
+      const recomendacion = getRecomendacion(catSel.value, symSel.value);
+      treeOut.className = 'alert';
+      treeOut.innerHTML = `<strong>Sugerencia:</strong> ${recomendacion.msg} <br><br><em>Riesgos:</em> ${recomendacion.riesgo}`;
+      treeOut.hidden=false;
+    })
+
+    function getRecomendacion(cat, sym){
+      const base = {
+        clutch:{
+          patina:['Desgaste de disco o presión baja','Pérdida de tracción y mayor consumo'],
+          vibra:['Desalineación o volante irregular','Daño progresivo de transmisión'],
+          pedal:['Ajuste o hidráulico del pedal','Fallo repentino al no atenderlo'],
+          olor:['Fricción excesiva por patinaje','Quemado de componentes'],
+          velocidades:['Desgaste o sincronización','Deterioro de caja de cambios']
+        },
+        frenos:{
+          chirrido:['Balatas gastadas','Daño a discos y menor frenado'],
+          vibracion:['Discos ovalados/torcidos','Mayor distancia de frenado'],
+          pedal:['Aire o fuga en sistema','Pérdida de frenado'],
+          luz:['Sensor advierte falla','Riesgo de frenado inestable'],
+          distancia:['Desgaste general','Accidentes por distancia']
+        },
+        frenos_aire:{
+          respuesta:['Ajuste de válvulas/rotochambers','Pérdida de capacidad a carga'],
+          fuga:['Fuga en líneas/tanques','Fallo crítico de frenado'],
+          ruidos:['Desgaste de componentes','Falla progresiva del sistema'],
+          vibracion:['Desbalance o tambores','Frenado irregular']
+        },
+        suspension:{
+          inclina:['Amortiguadores/bujes','Pérdida de control en curvas'],
+          rebota:['Amortiguadores agotados','Mayor distancia de frenado'],
+          ruidos:['Bujes/terminales desgaste','Roturas a alta velocidad'],
+          llantas:['Alineación y suspensión','Explosiones por desgaste']
+        }
+      }
+      const [msg, riesgo] = (base[cat] && base[cat][sym]) || ['Requiere diagnóstico en taller','Riesgo indeterminado'];
+      return {msg:`Agenda diagnóstico de ${cat} — posible: ${msg}.`, riesgo}
+    }
+
+    document.getElementById('treeCTA').addEventListener('click',()=>{
+      const text = encodeURIComponent(`Hola, quiero diagnóstico. Sistema: ${catSel.value||'-'}. Síntoma: ${symSel.options[symSel.selectedIndex]?.text||'-'}. Detalle: ${desc.value||'-'}.`);
+      window.open(`https://wa.me/${CONFIG.WHATSAPP_TEL}?text=${text}`,'_blank');
+      track('cta_tree_whatsapp')
+    })
+
+    // ======= FAQ (datos + render + búsqueda) =======
+    const faqs = [
+      {q:'¿Señales de clutch gastado?', a:'Patinaje al acelerar, vibraciones, olor a quemado y dificultad para entrar velocidades. Recomendamos diagnóstico y revisión de volante, disco, plato y collarín.', t:'clutch'},
+      {q:'¿Cada cuánto cambiar pastillas de freno?', a:'Depende del uso; señales: chirridos, menor respuesta, luz de advertencia o espesor < 3–4 mm.', t:'frenos'},
+      {q:'¿Discos ovalados causan vibración?', a:'Sí, provocan vibración en el volante al frenar. Solución: rectificado o reemplazo.', t:'frenos'},
+      {q:'¿Qué revisar en frenos de aire?', a:'Líneas, válvulas, rotochambers, secadores, bolsas y tanques. Atender fugas de inmediato.', t:'frenos_aire'},
+      {q:'¿Síntomas de suspensión dañada?', a:'Vehículo se inclina al girar, rebota, suenan baches y hay desgaste irregular de llantas.', t:'suspension'},
+      {q:'¿Qué incluye el mantenimiento preventivo?', a:'Aceite, filtros, bujías (ligero), correas y escaneo. Mejora desempeño y ahorro.', t:'mantenimiento'}
+    ];
+
+    const faqList = document.getElementById('faqList');
+    const faqSearch = document.getElementById('faqSearch');
+    function renderFAQ(filter=''){
+      const norm = filter.trim().toLowerCase();
+      const list = faqs.filter(f=>{
+        if(!norm) return true;
+        return f.q.toLowerCase().includes(norm) || f.t.toLowerCase().includes(norm) || f.a.toLowerCase().includes(norm);
+      });
+      faqList.innerHTML = list.map((f,i)=>`
+        <details ${i===0?'open':''}>
+          <summary>${f.q} <span class="pill" style="margin-left:.5rem">${f.t}</span></summary>
+          <div>${f.a}</div>
+        </details>
+      `).join('');
+    }
+    renderFAQ();
+    faqSearch.addEventListener('input', e=>renderFAQ(e.target.value));
+
+    // ======= FORM: envío a Google Sheets + WhatsApp =======
+    const form = document.getElementById('formCita');
+    const formStatus = document.getElementById('formStatus');
+    function toJSON(form){
+      const fd = new FormData(form);
+      const obj = {};
+      fd.forEach((v,k)=>obj[k]=v);
+      // agregados útiles
+      obj.timestamp = new Date().toISOString();
+      obj.estatus = 'nuevo';
+      obj.consentimiento_contacto = document.getElementById('consent').checked?'sí':'no';
+      return obj;
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      formStatus.textContent='Enviando…';
+      const data = toJSON(form);
+
+      // Validación mínima
+      if(!data.nombre_cliente || !data.telefono_whatsapp || !data.tipo_transporte || !data.sistema){
+        formStatus.textContent='Por favor completa los campos obligatorios.';
+        formStatus.style.color= 'var(--rojo)';
+        return;
+      }
+      if(!document.getElementById('consent').checked){
+        formStatus.textContent='Autoriza el contacto por WhatsApp.';
+        formStatus.style.color= 'var(--rojo)';
+        return;
+      }
+
+      try{
+        // Enviar a Google Sheets (Apps Script)
+        if(CONFIG.GOOGLE_SCRIPT_URL.startsWith('http')){
+          await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+            method:'POST',
+            mode:'no-cors',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+          });
+        }
+        formStatus.textContent='¡Listo! Te contactamos por WhatsApp en minutos.';
+        formStatus.style.color= 'var(--success)';
+        track('form_submit');
+
+        // Abrir WhatsApp con mensaje
+        const texto = encodeURIComponent(`Hola, soy ${data.nombre_cliente}. Sistema: ${data.sistema}. Síntoma: ${data.sintoma_principal||'-'}. Vehículo: ${data.marca_modelo_anio||'-'} (${data.placas_o_economico||'-'}). Preferencia: ${data.preferencia_cita_fecha||'-'} ${data.preferencia_cita_hora||''}.`);
+        window.open(`https://wa.me/${CONFIG.WHATSAPP_TEL}?text=${texto}`, '_blank');
+
+        // Reset + guardar nombre para siguiente vez
+        localStorage.setItem('lagger_nombre', data.nombre_cliente);
+        form.reset();
+      }catch(err){
+        formStatus.textContent='Ocurrió un error. Intenta de nuevo o contáctanos por WhatsApp.';
+        formStatus.style.color= 'var(--rojo)';
+      }
+    });
+
+    // Precarga del nombre si existe
+    (function(){
+      const n = localStorage.getItem('lagger_nombre');
+      if(n){ document.getElementById('nombre').value = n; }
+    })();
+
+    // ======= CTA WhatsApp (top & floating) =======
+    function setWALinks(){
+      const ctaTop = document.getElementById('ctaWhatsAppTop');
+      const flo = document.getElementById('floatingWA');
+      const text = encodeURIComponent('Hola, quiero cotizar/agendar un servicio.');
+      const url = `https://wa.me/${CONFIG.WHATSAPP_TEL}?text=${text}`;
+      ctaTop.href = url; flo.href = url;
+    }
+    setWALinks();
+
+    // ======= Métricas simples (LocalStorage) =======
+    function track(event){
+      const key = `lagger_evt_${event}`;
+      const val = parseInt(localStorage.getItem(key)||'0',10)+1;
+      localStorage.setItem(key, String(val));
+    }
+
+    // ======= Año dinámico =======
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
