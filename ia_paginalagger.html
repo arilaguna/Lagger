@@ -6,70 +6,45 @@
   <title>LAGGER — Especialistas en Clutch, Frenos y Aire</title>
   <meta name="description" content="Taller mecánico especializado en clutch, frenos y frenos de aire para transporte ligero y pesado. Diagnóstico preciso, garantía y atención por WhatsApp." />
   <style>
-   :root{ 
-    /* === Fondo elegante para taller mecánico (degradado/blur) === */
-
-  --bg-deep:#0A111E;         /* Azul acero profundo */
-  --bg-mid:#0E1A2B;          /* Azul marino intermedio */
-  --bg-top:#121F34;          /* Tono metálico frío */
-  --glow-rojo: rgba(211,47,47,.22);   /* Rojo LAGGER difuminado */
-  --glow-azul: rgba(25,118,210,.18);  /* Azul acento difuminado */
-  --glow-metal: rgba(255,255,255,.07);/* Brillo metálico sutil */
+  /* === Fondo LAGGER (override fuerte) === */
+:root{
+  --bg-deep:#0A111E;
+  --bg-mid:#0E1A2B;
+  --bg-top:#121F34;
+  --glow-rojo: rgba(211,47,47,.22);
+  --glow-azul: rgba(25,118,210,.18);
+  --glow-metal: rgba(255,255,255,.07);
 }
 
-/* Fondo base con capas de gradientes (elegante y sobrio) */
-html,body{
+/* Fuerza el nuevo fondo aunque exista otro previo */
+html, body{
+  min-height:100%;
   background:
     radial-gradient(1200px 800px at 12% 10%, var(--glow-rojo) 0%, transparent 40%),
     radial-gradient(1000px 700px at 88% 18%, var(--glow-azul) 0%, transparent 45%),
     radial-gradient(900px 700px at 30% 85%, var(--glow-metal) 0%, transparent 55%),
-    linear-gradient(180deg, var(--bg-top), var(--bg-mid) 45%, var(--bg-deep));
-  color: var(--gris-900);
+    linear-gradient(180deg, var(--bg-top), var(--bg-mid) 45%, var(--bg-deep)) !important;
+  /* El !important asegura que gane a tu fondo anterior */
 }
 
-/* Capa de “nebulosa” suave animada para dar vida al fondo */
-body::before{
-  content:"";
-  position:fixed; inset:-10% -10%;
-  pointer-events:none; z-index:-1;
-  background:
-    radial-gradient(600px 400px at 15% 25%, rgba(211,47,47,.18), transparent 60%),
-    radial-gradient(700px 500px at 85% 30%, rgba(25,118,210,.16), transparent 60%),
-    radial-gradient(800px 600px at 50% 90%, rgba(255,255,255,.05), transparent 65%);
-  filter: blur(30px) saturate(120%);
-  animation: laggerFloat 18s ease-in-out infinite alternate;
-}
-
-/* Vignette sutil para foco en el contenido */
-body::after{
-  content:"";
-  position:fixed; inset:0; z-index:-1; pointer-events:none;
-  box-shadow: inset 0 0 120px rgba(0,0,0,.25);
-}
-
-/* Suaviza y “eleva” superficies para que contrasten con el fondo */
-.card,
-details,
-.tab,
-.hero-media,
-.search input,
-input, select, textarea {
+/* Superficies con ligero glass para contraste */
+.card, details, .tab, .hero-media,
+.search input, input, select, textarea {
   background: rgba(255,255,255,0.92) !important;
   backdrop-filter: saturate(120%) blur(6px);
   -webkit-backdrop-filter: saturate(120%) blur(6px);
   border: 1px solid rgba(13,27,42,.06);
 }
 
-/* Encabezado ligeramente más sólido para legibilidad sobre el nuevo fondo */
 header{
   background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92)) !important;
   backdrop-filter: saturate(160%) blur(8px);
   -webkit-backdrop-filter: saturate(160%) blur(8px);
 }
 
-/* Botón primario con brillo metálico */
+/* Botón primario con brillo sutil */
 .btn-primary{
-  background: linear-gradient(180deg, #e04545, var(--rojo));
+  background: linear-gradient(180deg, #e04545, var(--rojo)) !important;
   color:#fff;
   text-shadow: 0 1px 0 rgba(0,0,0,.15);
   box-shadow: 0 10px 24px rgba(211,47,47,.28);
@@ -79,42 +54,28 @@ header{
   box-shadow: 0 14px 30px rgba(211,47,47,.34);
 }
 
-/* Botón secundario más contrastante */
-.btn-secondary{
-  background: rgba(255,255,255,.9);
-  border:1px solid rgba(13,27,42,.12);
-}
-
-/* Títulos con un pequeño “glow” frío */
-h1, h2, h3, summary{
-  color: var(--azul);
-  text-shadow: 0 1px 0 rgba(255,255,255,.4);
-}
-
-/* Tabs activas con leve degradado */
+/* Tabs activas más elegantes */
 .tab.active{
-  background: linear-gradient(180deg, #15263F, var(--azul));
-  border-color: #15263F;
-  color:#fff;
+  background: linear-gradient(180deg, #15263F, var(--azul)) !important;
+  border-color: #15263F !important;
+  color:#fff !important;
 }
-
-/* Imágenes con borde sutil para integrarlas al fondo nuevo */
-.hero-media,
-.card img{
-  border:1px solid rgba(13,27,42,.08);
+body::before{
+  content:"";
+  position:fixed; inset:-10% -10%;
+  pointer-events:none; z-index:0;
+  background:
+    radial-gradient(600px 400px at 15% 25%, rgba(211,47,47,.18), transparent 60%),
+    radial-gradient(700px 500px at 85% 30%, rgba(25,118,210,.16), transparent 60%),
+    radial-gradient(800px 600px at 50% 90%, rgba(255,255,255,.05), transparent 65%);
+  filter: blur(30px) saturate(120%);
+  animation: laggerFloat 18s ease-in-out infinite alternate;
 }
-
-/* Animación del halo */
 @keyframes laggerFloat{
   0%   { transform: translate3d(0,0,0) scale(1);   filter: blur(28px) saturate(118%); }
   100% { transform: translate3d(0,-12px,0) scale(1.02); filter: blur(34px) saturate(125%); }
 }
 
-/* Pequeños ajustes responsive para que el fondo no “coma” contenido */
-@media (max-width:900px){
-  body::before{ filter: blur(26px); }
-  .hero h1{ text-wrap: balance; }
-}
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--gris-200);color:var(--gris-900);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6}
