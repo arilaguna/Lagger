@@ -6,246 +6,89 @@
   <title>LAGGER — Especialistas en Clutch, Frenos y Aire</title>
   <meta name="description" content="Taller mecánico especializado en clutch, frenos y frenos de aire para transporte ligero y pesado. Diagnóstico preciso, garantía y atención por WhatsApp." />
   <style>
-  /* =======================
-   THEME LAGGER — OVERRIDES
-   (pegar al final del <style>)
-======================= */
+  :root{
+a{color:var(--dorado);text-decoration:none;transition:.2s}
+a:hover{color:var(--blanco)}
+img{max-width:100%;display:block;border-radius:var(--radius)}
+.container{width:min(1100px,92%);margin-inline:auto;padding-block:2rem}
 
-/* Colores y tokens */
-:root{
-  --text-900:#0D1B2A;        /* Azul muy oscuro (para títulos sobre superficies claras) */
-  --text-700:#23344A;        /* Texto primario sobre superficies claras */
-  --text-600:#3A4B60;        /* Texto secundario */
-  --text-on-dark:#E8EEF6;    /* Texto sobre fondo oscuro */
-  --muted-on-dark:#B9C7D9;   /* Texto secundario sobre fondo oscuro */
 
-  --surface: rgba(255,255,255,0.92);    /* Glass base */
-  --surface-strong: rgba(255,255,255,0.98);
-  --surface-border: rgba(13,27,42,.08);
-  --surface-border-strong: rgba(13,27,42,.12);
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,25,47,.9);backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+.brand{display:flex;align-items:center;gap:.75rem}
+.brand img{width:44px;height:44px;object-fit:contain;border-radius:50%;border:2px solid var(--dorado)}
+.brand .title{font-weight:800;color:var(--dorado)}
+nav ul{display:flex;gap:1rem;list-style:none}
+nav a{padding:.5rem .75rem;border-radius:10px;color:var(--blanco);font-weight:600}
+nav a:hover{background:rgba(197,164,109,.2)}
+.menu-toggle{display:none}
 
-  --focus:#1976D2;           /* Acento accesible */
-  --shadow-strong: 0 18px 50px rgba(5,10,20,.18);
-  --shadow-soft: 0 10px 25px rgba(0,0,0,.10);
-}
 
-/* Tipografía base y enlaces */
-html, body{
-  color: var(--text-on-dark);              /* mejor legibilidad sobre el fondo oscuro */
-}
-a{
-  color:#8FC1FF;
-  text-decoration:none;
-}
-a:hover{
-  text-decoration:underline;
-}
+/* Hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;padding:3rem 0}
+.badge{display:inline-block;background:var(--dorado);color:#000;padding:.25rem .6rem;border-radius:999px;font-size:.8rem;letter-spacing:.3px;font-weight:700}
+.hero h1{font-size:clamp(2rem,4vw,3rem);line-height:1.2;margin:.6rem 0;color:var(--blanco)}
+.hero p{font-size:1.1rem;color:var(--gris-claro)}
+.cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+.btn{border:0;padding:.9rem 1.2rem;border-radius:12px;cursor:pointer;font-weight:700;box-shadow:var(--shadow);transition:.15s}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--dorado);color:#000}
+.btn-secondary{background:transparent;color:var(--dorado);border:2px solid var(--dorado)}
 
-/* ===== Header / Nav ===== */
-header{
-  background: linear-gradient(180deg, var(--surface-strong), var(--surface)) !important;
-  backdrop-filter: saturate(160%) blur(10px);
-  -webkit-backdrop-filter: saturate(160%) blur(10px);
-  box-shadow: 0 2px 14px rgba(0,0,0,.12);
-}
-.brand .title{
-  color: var(--text-900) !important;
-  letter-spacing:.3px;
-}
-nav a{
-  color: var(--text-700) !important;
-  font-weight:600;
-  border-radius:12px;
-  transition: background .15s ease, color .15s ease;
-}
-nav a:hover{
-  background: rgba(25,118,210,.08) !important;
-  color: var(--text-900) !important;
-}
-.menu-toggle{
-  background: var(--surface-strong) !important;
-  border:1px solid var(--surface-border-strong) !important;
-  color: var(--text-700) !important;
-}
 
-/* Menú móvil desplegado */
-.nav.open ul{
-  background: var(--surface-strong) !important;
-  border-bottom:1px solid var(--surface-border-strong);
-}
+.hero-media{position:relative;overflow:hidden;box-shadow:var(--shadow)}
 
-/* ===== Hero ===== */
-.hero h1{
-  color: var(--text-on-dark);     /* título sobre fondo oscuro */
-  text-shadow: 0 2px 0 rgba(0,0,0,.25);
-}
-.hero p, .help{
-  color: var(--muted-on-dark);
-}
-.badge{
-  background: linear-gradient(180deg, #e04545, var(--rojo));
-  box-shadow: 0 6px 18px rgba(211,47,47,.25);
-}
 
-/* Imagen hero enmarcada para integrarse al tema */
-.hero-media{
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow: var(--shadow-strong);
-}
+/* Section */
+section h2{color:var(--dorado);margin-bottom:1rem;font-size:1.8rem}
+.grid{display:grid;gap:1rem}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
 
-/* ===== Tarjetas, cuadros, detalles ===== */
-.card,
-details,
-.tab,
-.search input,
-input, select, textarea {
-  background: var(--surface) !important;
-  color: var(--text-700) !important;
-  border: 1px solid var(--surface-border) !important;
-  box-shadow: var(--shadow-soft);
-}
-.card h3, summary{
-  color: var(--text-900) !important;
-}
 
-/* Detalles (FAQ) */
-details[open]{
-  border-color: var(--surface-border-strong) !important;
-}
+/* Cards */
+.card{background:#112240;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;color:var(--gris-claro)}
+.card h3{margin-bottom:.5rem;color:var(--dorado)}
+.pill{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:rgba(197,164,109,.2);color:var(--dorado)}
 
-/* Pills y etiquetas */
-.pill{
-  background: rgba(25,118,210,.10) !important;
-  color: var(--text-700) !important;
-  border: 1px solid rgba(25,118,210,.12);
-}
 
-/* ===== Tabs de Servicios ===== */
-.tabs{ gap:.6rem; }
-.tab{
-  color: var(--text-700) !important;
-}
-.tab:hover{
-  border-color: var(--surface-border-strong);
-}
-.tab.active{
-  background: linear-gradient(180deg, #1A2B45, var(--azul)) !important;
-  border-color: #1A2B45 !important;
-  color:#fff !important;
-  box-shadow: 0 8px 22px rgba(13,27,42,.28);
-}
+/* Tabs */
+.tabs{display:flex;gap:.5rem;margin-bottom:1rem}
+.tab{flex:1;text-align:center;background:#112240;padding:.7rem;border-radius:12px;cursor:pointer;font-weight:700;color:var(--gris-claro)}
+.tab.active{background:var(--dorado);color:#000}
 
-/* ===== Inputs y formularios ===== */
-label{ color: var(--text-700) !important; }
-input::placeholder,
-textarea::placeholder{
-  color:#8CA0B6;
-}
-input, select, textarea{
-  transition: border .12s ease, box-shadow .12s ease, background .12s ease;
-}
-input:focus, select:focus, textarea:focus{
-  outline: 3px solid rgba(25,118,210,.20);
-  border-color: var(--focus) !important;
-  box-shadow: 0 0 0 4px rgba(25,118,210,.10);
-  background: rgba(255,255,255,.98);
-}
 
-/* Estados de validación ligera */
-.status{ color: var(--text-900) !important; }
+/* Árbol de decisión */
+.tree select,.tree textarea,.tree input{width:100%;padding:.7rem;border-radius:12px;border:1px solid #334;background:#0a192f;color:var(--blanco)}
+.alert{border-left:6px solid var(--warning);background:rgba(255,193,7,.1);padding:.8rem;border-radius:10px}
+.success{border-left:6px solid var(--success);background:rgba(76,175,80,.1)}
 
-/* ===== Botones ===== */
-.btn{
-  border-radius: 12px;
-  letter-spacing:.2px;
-}
-.btn-primary{
-  background: linear-gradient(180deg, #e04545, var(--rojo)) !important;
-  color:#fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.15);
-  box-shadow: 0 10px 24px rgba(211,47,47,.28) !important;
-  border: none !important;
-}
-.btn-primary:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(211,47,47,.34) !important;
-}
-.btn-secondary{
-  background: var(--surface-strong) !important;
-  color: var(--text-700) !important;
-  border:1px solid var(--surface-border-strong) !important;
-  box-shadow: var(--shadow-soft);
-}
-.btn-secondary:hover{
-  background: #fff !important;
-}
 
-/* ===== Árbol de decisión ===== */
-.alert{
-  background: #fff8e1 !important;
-  border-left:6px solid var(--warning) !important;
-  color: #7a5a00 !important;
-}
-.success{
-  background: #e8f5e9 !important;
-  border-left:6px solid var(--success) !important;
-  color: #1b5e20 !important;
-}
+/* FAQ */
+.search input{width:100%;padding:.85rem;border-radius:12px;border:1px solid #333;background:#0a192f;color:var(--blanco)}
+details{background:#112240;border-radius:12px;padding:.7rem 1rem;border:1px solid #223}
+summary{cursor:pointer;font-weight:700;color:var(--dorado)}
 
-/* ===== Secciones y títulos ===== */
-h2{
-  color: var(--text-on-dark);
-  text-shadow: 0 1px 0 rgba(0,0,0,.25);
-}
-section{
-  padding-block: 2.25rem;   /* un poco más de aire con el fondo dramático */
-}
 
-/* ===== Footer ===== */
-footer{
-  color: var(--muted-on-dark);
-}
-footer strong{
-  color: var(--text-on-dark);
-}
+/* Form */
+form{display:grid;gap:.9rem}
+input,select,textarea{padding:.75rem;border-radius:12px;border:1px solid #223;background:#0a192f;color:var(--blanco)}
+.status{font-weight:700;color:var(--dorado)}
 
-/* ===== Botón flotante WhatsApp ===== */
-.floating-wa{
-  background:#25D366 !important;
-  color:#fff !important;
-  box-shadow: 0 16px 36px rgba(0,0,0,.28) !important;
-  border: none !important;
+
+/* Footer */
+footer{padding:2rem 0;background:#112240;color:var(--gris-claro)}
+.floating-wa{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;border-radius:999px;padding:.9rem 1.1rem;font-weight:800;box-shadow:0 12px 26px rgba(0,0,0,.3)}
+
+
+@media (max-width: 900px){
+.hero{grid-template-columns:1fr}
+.grid-3,.grid-2{grid-template-columns:1fr}
+nav ul{display:none}
+.menu-toggle{display:block;border:1px solid #444;background:#112240;color:var(--dorado);padding:.4rem .6rem;border-radius:8px}
+.nav.open ul{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:#112240;padding:1rem;border-bottom:1px solid #223}
 }
-
-/* ===== Tablas y listas dentro de cards ===== */
-.card ul{ color: var(--text-700); }
-.card li{ margin:.25rem 0; }
-
-/* ===== Borde de imágenes (galería/servicios) ===== */
-.card img{
-  border:1px solid rgba(13,27,42,.08);
-  border-radius:12px;
-}
-
-/* ===== Accesibilidad: foco visible en elementos clicables ===== */
-a:focus-visible,
-button:focus-visible,
-.summary:focus-visible,
-.tab:focus-visible,
-.menu-toggle:focus-visible{
-  outline: 3px solid rgba(25,118,210,.55);
-  outline-offset: 2px;
-  border-radius:12px;
-}
-
-/* ===== Responsive ===== */
-@media (max-width:900px){
-  .hero h1{ text-wrap: balance; }
-  .grid{ gap: .9rem; }
-  nav a{ padding:.55rem .7rem; }
-}
-
   </style>
 </head>
 <body>
