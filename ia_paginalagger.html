@@ -135,7 +135,6 @@
   <header>
     <div class="wrap">
       <div class="brand">
-        <!-- LOGO: Reemplaza LOGO_URL por tu ruta real -->
         <img class="logo-img" src="LOGO_URL" alt="LAGGER logo">
         <h1>LAGGER · Especialistas en Clutch y Frenos</h1>
       </div>
@@ -171,10 +170,10 @@
 
   <main class="wrap grid">
     <section>
-      <!-- DIAGNÓSTICO -->
+      <!-- DIAGNÓSTICO (sin pedir datos del cliente) -->
       <article id="route-diagnostico" class="card reveal" aria-labelledby="tit-dx">
-        <h2 id="tit-dx">Diagnóstico con IA: empieza por el síntoma</h2>
-        <p class="intro">Cuéntanos qué notas (ruido, vibración, pedal esponjoso, pérdida de presión de aire, patinaje de clutch). Te daremos una <strong>sugerencia de servicio</strong> con <strong>tiempo</strong> y <strong>rango de costo</strong>. *No sustituye la inspección física.*</p>
+        <h2 id="tit-dx">Diagnóstico con IA: posibles fallas según tu síntoma</h2>
+        <p class="intro">Describe el **síntoma** y algunos **detalles**. Te sugeriremos el servicio probable, causa, tiempo y rango de costo. Al final podrás **agendar** si lo deseas.</p>
         <div class="body">
           <form id="form-dx" autocomplete="on">
             <div class="row">
@@ -210,25 +209,11 @@
                 <textarea id="details" name="details" maxlength="600" placeholder="Ej.: el ruido aparece a baja velocidad, el pedal se hunde, etc."></textarea>
               </div>
             </div>
-            <div class="row">
-              <div class="field">
-                <label for="name">Nombre</label>
-                <input id="name" name="name" required placeholder="Tu nombre" />
-              </div>
-              <div class="field">
-                <label for="phone">WhatsApp</label>
-                <input id="phone" name="phone" type="tel" required placeholder="10 dígitos" pattern="[0-9]{10}" />
-              </div>
-              <div class="field">
-                <label for="email">Correo (opcional)</label>
-                <input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" />
-              </div>
-            </div>
             <div class="actions">
               <button class="btn" type="submit">Generar diagnóstico</button>
               <button class="btn ghost" type="reset">Limpiar</button>
             </div>
-            <input type="hidden" id="lead" name="lead" />
+            <!-- ya no pedimos datos del cliente -->
           </form>
           <div id="dx-result" class="result hidden" aria-live="polite"></div>
         </div>
@@ -237,7 +222,7 @@
       <!-- AGENDAR -->
       <article id="route-agendar" class="card reveal hidden" aria-labelledby="tit-ag">
         <h2 id="tit-ag">Agenda tu cita: elegimos fecha y hora</h2>
-        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Te enviaremos el registro por WhatsApp y correo. Si tienes urgencia, contáctanos por el botón verde de WhatsApp.</p>
+        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Si necesitas ayuda para escoger, regresa a Diagnóstico o escríbenos por WhatsApp.</p>
         <div class="body">
           <form id="form-ag" autocomplete="on">
             <div class="row">
@@ -267,7 +252,6 @@
               <button class="btn alt" type="submit">Confirmar cita</button>
               <button class="btn ghost" type="button" id="btnToDx">Volver a diagnóstico</button>
             </div>
-            <input type="hidden" id="ag-lead" name="lead" />
           </form>
           <div id="ag-result" class="result hidden" aria-live="polite"></div>
         </div>
@@ -355,7 +339,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite" style="display:none"></div>
 
   <footer class="wrap">
-    <small>© LAGGER. Especialistas Clutch y Frenos. <code>v3.2</code></small>
+    <small>© LAGGER. Especialistas Clutch y Frenos. <code>v3.3</code></small>
   </footer>
 
   <script>
@@ -365,6 +349,7 @@
 
     const qs = new URLSearchParams(location.search);
     const UTM = { utm_source: qs.get('utm_source')||'', utm_campaign: qs.get('utm_campaign')||'' };
+    // lead opcional: ya no se genera en diagnóstico
     const state = { lead: qs.get('lead')||localStorage.getItem('lead')||'', serviceSuggested:'', appointment:{date:'',time:'',service:''} };
     function updateSummary(){ $('#s-lead').textContent = state.lead||'—'; $('#s-service').textContent = state.serviceSuggested||'—'; $('#s-dt').textContent = (state.appointment.date&&state.appointment.time)?`${state.appointment.date} ${state.appointment.time}`:'—'; }
 
@@ -386,17 +371,20 @@
 
     if(qs.get('service')){ $('#service').value = qs.get('service'); state.serviceSuggested = qs.get('service'); }
 
+    // DIAGNÓSTICO: ya NO guarda lead ni pide datos del cliente
     $('#form-dx').addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const payload={ symptom:$('#symptom').value, unitType:$('#unitType').value, year:$('#year').value, details:($('#details').value||'').slice(0,600), name:$('#name').value.slice(0,80), phone:$('#phone').value, email:$('#email').value, lead:state.lead, ...UTM };
-      if(!payload.symptom||!payload.unitType||!payload.year||!payload.name||!payload.phone){ toast('Completa los campos obligatorios.'); return; }
+      const payload={
+        symptom:$('#symptom').value,
+        unitType:$('#unitType').value,
+        year:$('#year').value,
+        details:($('#details').value||'').slice(0,600),
+        lead: state.lead, // opcional; puede ir vacío
+        ...UTM
+      };
+      if(!payload.symptom||!payload.unitType||!payload.year){ toast('Selecciona síntoma, tipo de unidad y año.'); return; }
       const btn = $('#form-dx button[type="submit"]'); btn.disabled=true; btn.textContent='Procesando…';
       try{
-        if(!state.lead){
-          const resLead = await fetch(API + "?route=saveLead",{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({nombre:payload.name, telefono:payload.phone, correo:payload.email, consentimiento:true, canal_origen:'web', ...UTM})});
-          const jLead=await resLead.json(); state.lead=jLead.lead_id||'';
-          if(state.lead){ localStorage.setItem('lead',state.lead); $('#lead').value=state.lead; $('#ag-lead').value=state.lead; }
-        }
         const res = await fetch(API + "?route=diagnose",{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
         const j=await res.json();
         state.serviceSuggested = j.servicio_sugerido || 'Revisión general';
@@ -411,6 +399,7 @@
           <div class="actions"><button class="btn alt" id="agendarFromDx">Agendar</button></div>
         </div>`;
         $r.classList.remove('hidden');
+        // precargar servicio en Agendar
         $('#service').value = state.serviceSuggested; updateSummary();
         $('#agendarFromDx')?.addEventListener('click',()=>setRoute('#/agendar'));
         toast('Diagnóstico generado.');
@@ -418,6 +407,7 @@
       finally{ btn.disabled=false; btn.textContent='Generar diagnóstico'; }
     });
 
+    // AGENDAR
     $('#form-ag').addEventListener('submit', async (e)=>{
       e.preventDefault();
       const payload={ lead_id:state.lead, service:$('#service').value, date:$('#date').value, time:$('#time').value, ...UTM };
@@ -438,9 +428,12 @@
       finally{ btn.disabled=false; btn.textContent='Confirmar cita'; }
     });
 
+    // Accesos rápidos
     $('#go-agendar')?.addEventListener('click',()=>setRoute('#/agendar'));
     $('#go-dx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
     $('#btnToDx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
+
+    // FAQ (mock)
     $('#faqSearch').addEventListener('click', async ()=>{ const q=($('#faqQuery').value||'').trim(); const box=$('#faqResults'); if(!q){ box.classList.add('hidden'); toast('Escribe tu duda.'); return; }
       try{
         const answers=[
@@ -452,13 +445,14 @@
       }catch(err){ console.error(err); toast('No se pudo buscar en FAQ.'); }
     });
 
+    // Aparición al hacer scroll
     const io = new IntersectionObserver((es)=> es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }), {threshold:.12});
     $$('.reveal').forEach(el=>io.observe(el));
 
-    window.addEventListener('DOMContentLoaded',()=>{ if(state.lead){ $('#lead').value=state.lead; $('#ag-lead').value=state.lead; }
+    // Init
+    window.addEventListener('DOMContentLoaded',()=>{
       setRoute(location.hash||'#/diagnostico'); updateSummary();
     });
   </script>
 </body>
 </html>
-
