@@ -13,10 +13,7 @@
       --text:#f1f4fa;
       --muted:#9aa3b2;
       --primary:#ff3b30;
-      --primary-600:#e53935;
-      --primary-700:#b71c1c;
       --accent:#5fd3f3;
-      --ok:#2ecc71; --warn:#f39c12; --error:#e74c3c;
       --shadow: rgba(0,0,0,.35);
       --radius: 16px; --gap: 16px;
     }
@@ -51,6 +48,7 @@
     .tab:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(0,0,0,.25)}
     .tab[aria-current="page"]{background:var(--primary); border-color:transparent; box-shadow:0 10px 30px rgba(255,59,48,.35)}
 
+    /* HERO */
     .hero{position:relative; z-index:1; padding:28px 18px 8px}
     .hero-inner{max-width:1200px; margin:0 auto; display:grid; gap:18px; align-items:center}
     @media(min-width:980px){.hero-inner{grid-template-columns:1.2fr .8fr}}
@@ -68,10 +66,12 @@
       radial-gradient(45% 55% at 70% 65%, #5fd3f326, transparent 70%);} 
     .hero-ill img{width:100%; height:100%; object-fit:cover; opacity:.9}
 
+    /* Layout principal */
     main{padding: 10px 18px 24px}
     .grid{display:grid; gap:var(--gap)}
     @media(min-width:980px){.grid{grid-template-columns: 1.2fr .8fr}}
 
+    /* Cards */
     .card{position:relative; background:var(--panel); border-radius:var(--radius); box-shadow:0 14px 40px var(--shadow)}
     .card:before{content:""; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(135deg, #283246, rgba(255,255,255,.06), #283246);
       -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none}
@@ -108,7 +108,7 @@
     footer{padding:22px 18px; border-top:1px solid rgba(255,255,255,.06); color:var(--muted)}
     small code{opacity:.8}
 
-    /* Botón flotante de WhatsApp */
+    /* WhatsApp FAB */
     .wa-fab{
       position:fixed; right:14px; bottom:14px; z-index:80;
       display:inline-flex; align-items:center; gap:10px;
@@ -141,14 +141,16 @@
       <nav aria-label="Secciones">
         <button class="tab" data-route="#/diagnostico">Diagnóstico</button>
         <button class="tab" data-route="#/agendar">Agendar</button>
-        <button class="tab" data-route="#/faq">FAQ</button>
+        <button class="tab" data-route="#/faq">Preguntas Frecuentes</button>
         <button class="tab" data-route="#/nosotros">Sobre nosotros</button>
       </nav>
     </div>
   </header>
 
+  <!-- HERO dinámico -->
   <section class="hero">
-    <div class="hero-inner">
+    <div class="hero-inner" id="heroInner">
+      <!-- Se llena dinámicamente según la ruta -->
       <div>
         <h2>Mantén tu unidad trabajando, sin sorpresas</h2>
         <p>Diagnóstico claro, citas confirmadas y atención experta en <strong>clutch, frenos y aire</strong> para transporte pesado y ligero.</p>
@@ -163,17 +165,17 @@
         </div>
       </div>
       <div class="hero-ill">
-        <img src="HERO_IMG_URL" alt="LAGGER Taller — clutch, frenos y aire">
+        <img id="heroImg" src="HERO_IMG_URL" alt="LAGGER — clutch, frenos y aire">
       </div>
     </div>
   </section>
 
   <main class="wrap grid">
     <section>
-      <!-- DIAGNÓSTICO (sin pedir datos del cliente) -->
+      <!-- DIAGNÓSTICO (sin datos del cliente) -->
       <article id="route-diagnostico" class="card reveal" aria-labelledby="tit-dx">
         <h2 id="tit-dx">Diagnóstico con IA: posibles fallas según tu síntoma</h2>
-        <p class="intro">Describe el **síntoma** y algunos **detalles**. Te sugeriremos el servicio probable, causa, tiempo y rango de costo. Al final podrás **agendar** si lo deseas.</p>
+        <p class="intro">Describe el <strong>síntoma</strong> y algunos <strong>detalles</strong>. Te sugeriremos el servicio probable, causa, tiempo y rango de costo. *No sustituye la inspección física.*</p>
         <div class="body">
           <form id="form-dx" autocomplete="on">
             <div class="row">
@@ -195,7 +197,7 @@
                   <option value="">Selecciona…</option>
                   <option>Tráiler</option>
                   <option>Camión</option>
-                  <option>Ligero</option>
+                  <option>Auto</option>
                 </select>
               </div>
               <div class="field">
@@ -213,7 +215,6 @@
               <button class="btn" type="submit">Generar diagnóstico</button>
               <button class="btn ghost" type="reset">Limpiar</button>
             </div>
-            <!-- ya no pedimos datos del cliente -->
           </form>
           <div id="dx-result" class="result hidden" aria-live="polite"></div>
         </div>
@@ -222,10 +223,28 @@
       <!-- AGENDAR -->
       <article id="route-agendar" class="card reveal hidden" aria-labelledby="tit-ag">
         <h2 id="tit-ag">Agenda tu cita: elegimos fecha y hora</h2>
-        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Si necesitas ayuda para escoger, regresa a Diagnóstico o escríbenos por WhatsApp.</p>
+        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Si necesitas ayuda, vuelve a Diagnóstico o escríbenos por WhatsApp.</p>
         <div class="body">
           <form id="form-ag" autocomplete="on">
             <div class="row">
+              <div class="field">
+                <label for="clientName">Nombre</label>
+                <input id="clientName" name="clientName" required placeholder="Tu nombre" />
+              </div>
+              <div class="field">
+                <label for="unitBrand">Unidad — Marca</label>
+                <input id="unitBrand" name="unitBrand" placeholder="Ej.: Kenworth, Freightliner, Nissan" />
+              </div>
+              <div class="field">
+                <label for="unitModel">Unidad — Modelo</label>
+                <input id="unitModel" name="unitModel" placeholder="Ej.: T680, Cascadia, Versa" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="unitYear">Unidad — Año</label>
+                <input id="unitYear" name="unitYear" type="number" min="1980" max="2099" placeholder="2018" />
+              </div>
               <div class="field">
                 <label for="service">Servicio</label>
                 <select id="service" name="service" required>
@@ -257,10 +276,10 @@
         </div>
       </article>
 
-      <!-- FAQ -->
+      <!-- PREGUNTAS FRECUENTES -->
       <article id="route-faq" class="card reveal hidden" aria-labelledby="tit-fq">
-        <h2 id="tit-fq">Centro de ayuda & FAQ</h2>
-        <p class="intro">Encuentra respuestas rápidas sobre <strong>clutch, frenos y aire</strong>. Tip: busca con palabras clave como “balatas”, “pedal”, “presión de aire”. Si no ves tu duda, escríbenos por WhatsApp.</p>
+        <h2 id="tit-fq">Centro de ayuda y preguntas frecuentes</h2>
+        <p class="intro">Busca con palabras clave como <em>balatas</em>, <em>pedal</em>, <em>presión de aire</em>. Si no encuentras tu duda, contáctanos por WhatsApp.</p>
         <div class="body">
           <div class="row">
             <div class="field"><input id="faqQuery" placeholder="Ej.: ¿cada cuándo cambio balatas?" /></div>
@@ -273,16 +292,16 @@
       <!-- SOBRE NOSOTROS -->
       <article id="route-nosotros" class="card reveal hidden" aria-labelledby="tit-nos">
         <h2 id="tit-nos">Sobre LAGGER: experiencia que da confianza</h2>
-        <p class="intro">Somos especialistas en <strong>clutch, frenos y sistemas de aire</strong> para transporte pesado y ligero. Ofrecemos comunicación clara, procesos documentados y <strong>garantía escrita</strong>.</p>
+        <p class="intro">Especialistas en <strong>clutch, frenos y sistemas de aire</strong> para transporte pesado y ligero. Comunicación clara, procesos documentados y <strong>garantía escrita</strong>.</p>
         <div class="body">
           <div class="row">
             <div class="field">
               <label>¿Por qué elegirnos?</label>
               <ul class="muted" style="margin:0; padding-left:18px; line-height:1.8">
-                <li><strong>Experiencia real</strong> en tractos, camiones y unidades ligeras.</li>
-                <li><strong>Tiempo fuera de ruta</strong> reducido con citas puntuales.</li>
-                <li><strong>Refacciones confiables</strong> y trazabilidad del servicio.</li>
-                <li><strong>Mantenimiento preventivo</strong> planificado por kilometraje.</li>
+                <li><strong>Experiencia</strong> en tractos, camiones y autos.</li>
+                <li><strong>Eficiencia</strong> y puntualidad para reducir tiempos fuera de ruta.</li>
+                <li><strong>Refacciones confiables</strong> y procesos trazables.</li>
+                <li><strong>Mantenimiento preventivo</strong> por kilometraje.</li>
               </ul>
             </div>
             <div class="field">
@@ -296,11 +315,11 @@
           </div>
           <div class="row">
             <div class="field">
-              <label>Ubicación y contacto</label>
+              <label>Contacto</label>
               <p class="muted" style="margin:.2rem 0 0"><strong>Av. Estado de México #164</strong>, Col. Bello Horizonte, C.P. 54948, <strong>Tultitlán, Edomex</strong><br>Tel: <strong>55 7515 4446</strong> · <strong>55 7312 6969</strong><br>Sitio: <strong>cyf-lagger.com.mx</strong> · Correo: <strong>ventas@cyf-lagger.com.mx</strong></p>
             </div>
           </div>
-          <div class="gallery" aria-label="Galería (reemplaza las URLs por tus imágenes)">
+          <div class="gallery" aria-label="Galería">
             <img src="IMG_URL_1" alt="Taller LAGGER">
             <img src="IMG_URL_2" alt="Equipo técnico en acción">
             <img src="IMG_URL_3" alt="Servicios de clutch y frenos">
@@ -309,6 +328,7 @@
       </article>
     </section>
 
+    <!-- Columna lateral -->
     <aside>
       <div class="card reveal">
         <h2 style="padding-bottom:0">Resumen</h2>
@@ -328,7 +348,7 @@
     </aside>
   </main>
 
-  <!-- Botón flotante de WhatsApp -->
+  <!-- WhatsApp FAB -->
   <a class="wa-fab" id="waFab"
      href="https://wa.me/525575154446?text=Hola%20LAGGER%2C%20vengo%20de%20la%20web.%20Quiero%20informes%20y%20agendar%20cita."
      target="_blank" rel="noopener">
@@ -339,7 +359,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite" style="display:none"></div>
 
   <footer class="wrap">
-    <small>© LAGGER. Especialistas Clutch y Frenos. <code>v3.3</code></small>
+    <small>© LAGGER. Especialistas Clutch y Frenos.</small>
   </footer>
 
   <script>
@@ -349,10 +369,73 @@
 
     const qs = new URLSearchParams(location.search);
     const UTM = { utm_source: qs.get('utm_source')||'', utm_campaign: qs.get('utm_campaign')||'' };
-    // lead opcional: ya no se genera en diagnóstico
     const state = { lead: qs.get('lead')||localStorage.getItem('lead')||'', serviceSuggested:'', appointment:{date:'',time:'',service:''} };
     function updateSummary(){ $('#s-lead').textContent = state.lead||'—'; $('#s-service').textContent = state.serviceSuggested||'—'; $('#s-dt').textContent = (state.appointment.date&&state.appointment.time)?`${state.appointment.date} ${state.appointment.time}`:'—'; }
 
+    /* HERO VARIANTES (5) */
+    const heroVariants = {
+      home: {
+        title: 'Mantén tu unidad trabajando, sin sorpresas',
+        text: 'Diagnóstico claro, citas confirmadas y atención experta en <strong>clutch, frenos y aire</strong> para transporte pesado y ligero.',
+        kpis: true,
+        img: 'HERO_IMG_URL',
+        buttons: [{id:'ctaDx', label:'Diagnóstico rápido', kind:'solid'}, {id:'ctaAg', label:'Agendar cita', kind:'ghost'}]
+      },
+      '#/diagnostico': {
+        title: 'Diagnóstico inmediato según el síntoma',
+        text: 'Indica el síntoma y obtén posibles fallas, causa probable, tiempo estimado y rango de costo.',
+        kpis: true,
+        img: 'HERO_IMG_URL',
+        buttons: [{id:'ctaDx', label:'Ir a Diagnóstico', kind:'solid'}, {id:'ctaAg', label:'Agendar cita', kind:'ghost'}]
+      },
+      '#/agendar': {
+        title: 'Agenda tu servicio en minutos',
+        text: 'Elige servicio, fecha y hora. Te confirmamos por WhatsApp y correo.',
+        kpis: false,
+        img: 'HERO_IMG_URL',
+        buttons: [{id:'ctaAg', label:'Agendar ahora', kind:'solid'}, {id:'ctaDx', label:'Necesito diagnóstico', kind:'ghost'}]
+      },
+      '#/faq': {
+        title: 'Centro de ayuda y preguntas frecuentes',
+        text: 'Encuentra respuestas usando palabras clave como <em>balatas</em>, <em>pedal</em> o <em>presión de aire</em>.',
+        kpis: false,
+        img: 'HERO_IMG_URL',
+        buttons: [{id:'ctaDx', label:'Ir a Diagnóstico', kind:'solid'}, {id:'ctaAg', label:'Agendar', kind:'ghost'}]
+      },
+      '#/nosotros': {
+        title: 'Sobre LAGGER: experiencia que da confianza',
+        text: 'Especialistas en clutch, frenos y aire. Procesos claros y garantía escrita.',
+        kpis: false,
+        img: 'HERO_IMG_URL',
+        buttons: [{id:'ctaAg', label:'Agendar cita', kind:'solid'}]
+      }
+    };
+
+    function renderHero(hash='home'){
+      const v = heroVariants[hash] || heroVariants.home;
+      const hero = document.getElementById('heroInner');
+      hero.innerHTML = `
+        <div>
+          <h2>${v.title}</h2>
+          <p>${v.text}</p>
+          <div class="cta">
+            ${v.buttons.map(b => `<button class="btn ${b.kind==='ghost'?'ghost':''}" id="${b.id}">${b.label}</button>`).join('')}
+          </div>
+          ${v.kpis ? `
+          <div class="ribbon">
+            <div class="chip">&lt; 5 min<small>Tiempo de respuesta</small></div>
+            <div class="chip">+20%<small>Citas confirmadas</small></div>
+            <div class="chip">Garantía<small>Servicio profesional</small></div>
+          </div>` : ``}
+        </div>
+        <div class="hero-ill"><img src="${v.img}" alt="LAGGER — clutch, frenos y aire"></div>
+      `;
+      // Re-wire hero buttons
+      $('#ctaDx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
+      $('#ctaAg')?.addEventListener('click',()=>setRoute('#/agendar'));
+    }
+
+    // SPA routing
     const routes=['#/diagnostico','#/agendar','#/faq','#/nosotros'];
     function setRoute(hash){ if(!routes.includes(hash)) hash = '#/diagnostico';
       $$('#route-diagnostico, #route-agendar, #route-faq, #route-nosotros').forEach(el=>el.classList.add('hidden'));
@@ -361,17 +444,20 @@
       if(hash==='#/agendar'){ $('#route-agendar').classList.remove('hidden'); $$('.tab')[1].setAttribute('aria-current','page'); }
       if(hash==='#/faq'){ $('#route-faq').classList.remove('hidden'); $$('.tab')[2].setAttribute('aria-current','page'); }
       if(hash==='#/nosotros'){ $('#route-nosotros').classList.remove('hidden'); $$('.tab')[3].setAttribute('aria-current','page'); }
+      renderHero(hash);
       location.hash = hash;
     }
     $$('.tab').forEach(btn=>btn.addEventListener('click',()=>setRoute(btn.dataset.route)));
     window.addEventListener('hashchange',()=>setRoute(location.hash));
 
+    // CTA hero (inicial)
     $('#ctaDx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
     $('#ctaAg')?.addEventListener('click',()=>setRoute('#/agendar'));
 
+    // Prefill servicio por query
     if(qs.get('service')){ $('#service').value = qs.get('service'); state.serviceSuggested = qs.get('service'); }
 
-    // DIAGNÓSTICO: ya NO guarda lead ni pide datos del cliente
+    // Form Diagnóstico (sin pedir datos del cliente)
     $('#form-dx').addEventListener('submit', async (e)=>{
       e.preventDefault();
       const payload={
@@ -379,7 +465,7 @@
         unitType:$('#unitType').value,
         year:$('#year').value,
         details:($('#details').value||'').slice(0,600),
-        lead: state.lead, // opcional; puede ir vacío
+        lead: state.lead,
         ...UTM
       };
       if(!payload.symptom||!payload.unitType||!payload.year){ toast('Selecciona síntoma, tipo de unidad y año.'); return; }
@@ -399,7 +485,7 @@
           <div class="actions"><button class="btn alt" id="agendarFromDx">Agendar</button></div>
         </div>`;
         $r.classList.remove('hidden');
-        // precargar servicio en Agendar
+        // Precargar servicio en Agendar
         $('#service').value = state.serviceSuggested; updateSummary();
         $('#agendarFromDx')?.addEventListener('click',()=>setRoute('#/agendar'));
         toast('Diagnóstico generado.');
@@ -407,11 +493,23 @@
       finally{ btn.disabled=false; btn.textContent='Generar diagnóstico'; }
     });
 
-    // AGENDAR
+    // Form Agendar (con datos adicionales)
     $('#form-ag').addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const payload={ lead_id:state.lead, service:$('#service').value, date:$('#date').value, time:$('#time').value, ...UTM };
-      if(!payload.service||!payload.date||!payload.time){ toast('Completa los campos de cita.'); return; }
+      const payload={
+        lead_id:state.lead,
+        name: $('#clientName').value,
+        unitBrand: $('#unitBrand').value,
+        unitModel: $('#unitModel').value,
+        unitYear: $('#unitYear').value,
+        service: $('#service').value,
+        date: $('#date').value,
+        time: $('#time').value,
+        ...UTM
+      };
+      if(!payload.name || !payload.service || !payload.date || !payload.time){
+        toast('Completa nombre, servicio, fecha y hora.'); return;
+      }
       const btn=$('#form-ag button[type="submit"]'); btn.disabled=true; btn.textContent='Confirmando…';
       try{
         const res=await fetch(API + "?route=createBooking",{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
@@ -422,7 +520,10 @@
           <p class="muted">${payload.date} ${payload.time} · Ubicación: Av. Estado de México #164, Bello Horizonte, Tultitlán, Edomex</p>
           <div class="actions"><button class="btn ghost" id="copyTicket">Copiar resumen</button></div>`;
         $r.classList.remove('hidden'); updateSummary();
-        $('#copyTicket')?.addEventListener('click',()=>{ const txt=`Cita LAGGER — ${payload.service} | ${payload.date} ${payload.time} | Av. Estado de México #164, Bello Horizonte, Tultitlán, Edomex`; navigator.clipboard.writeText(txt); toast('Copiado ✅'); });
+        $('#copyTicket')?.addEventListener('click',()=>{ 
+          const txt=`Cita LAGGER — ${payload.service} | ${payload.date} ${payload.time} | ${payload.name} | ${payload.unitBrand||''} ${payload.unitModel||''} ${payload.unitYear||''} | Av. Estado de México #164, Bello Horizonte, Tultitlán, Edomex`;
+          navigator.clipboard.writeText(txt); toast('Copiado ✅'); 
+        });
         toast('Cita creada con éxito.');
       }catch(err){ console.error(err); toast('No se pudo crear la cita.'); }
       finally{ btn.disabled=false; btn.textContent='Confirmar cita'; }
@@ -434,7 +535,10 @@
     $('#btnToDx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
 
     // FAQ (mock)
-    $('#faqSearch').addEventListener('click', async ()=>{ const q=($('#faqQuery').value||'').trim(); const box=$('#faqResults'); if(!q){ box.classList.add('hidden'); toast('Escribe tu duda.'); return; }
+    $('#faqSearch').addEventListener('click', async ()=>{ 
+      const q=($('#faqQuery').value||'').trim(); 
+      const box=$('#faqResults'); 
+      if(!q){ box.classList.add('hidden'); toast('Escribe tu duda.'); return; }
       try{
         const answers=[
           {q:'¿Cada cuándo cambio balatas?', a:'En transporte pesado suele recomendarse cada 20,000–40,000 km según uso y carga. Validar con inspección visual.'},
@@ -445,13 +549,15 @@
       }catch(err){ console.error(err); toast('No se pudo buscar en FAQ.'); }
     });
 
-    // Aparición al hacer scroll
+    // Scroll reveal
     const io = new IntersectionObserver((es)=> es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }), {threshold:.12});
     $$('.reveal').forEach(el=>io.observe(el));
 
     // Init
     window.addEventListener('DOMContentLoaded',()=>{
-      setRoute(location.hash||'#/diagnostico'); updateSummary();
+      renderHero('home'); // HERO inicial (home)
+      setRoute(location.hash||'#/diagnostico'); 
+      updateSummary();
     });
   </script>
 </body>
