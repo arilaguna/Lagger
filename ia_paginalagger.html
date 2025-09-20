@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LAGGER — Diagnóstico IA • Citas • Sobre Nosotros</title>
+  <title>LAGGER — Especialistas en Clutch y Frenos</title>
   <meta name="description" content="App de una sola página para LAGGER: diagnóstico con IA, agendar citas y presentación del taller. Diseño llamativo con microinteracciones (HTML+CSS+JS)." />
   <style>
     :root{
@@ -77,6 +77,7 @@
       -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none}
     .card>*{padding:18px 18px 0}
     .card h2{margin:0 0 8px 0; font-size:18px}
+    .card .intro{color:var(--muted); margin:-4px 0 12px; font-size:14px}
     .card .body{padding-bottom:16px}
     .muted{color:var(--muted); font-size:14px}
 
@@ -136,7 +137,7 @@
       <div class="brand">
         <!-- LOGO: Reemplaza LOGO_URL por tu ruta real -->
         <img class="logo-img" src="LOGO_URL" alt="LAGGER logo">
-        <h1>LAGGER · Diagnóstico IA • Citas • Sobre Nosotros</h1>
+        <h1>LAGGER · Especialistas en Clutch y Frenos</h1>
       </div>
       <nav aria-label="Secciones">
         <button class="tab" data-route="#/diagnostico">Diagnóstico</button>
@@ -150,8 +151,8 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <h2>Atención inmediata, diagnóstico claro y citas en un clic</h2>
-        <p>Especialistas en <strong>clutch, frenos y aire</strong> para transporte pesado y ligero. Respuesta en &lt;5 min. Garantía escrita.</p>
+        <h2>Mantén tu unidad trabajando, sin sorpresas</h2>
+        <p>Diagnóstico claro, citas confirmadas y atención experta en <strong>clutch, frenos y aire</strong> para transporte pesado y ligero.</p>
         <div class="cta">
           <button class="btn" id="ctaDx">Diagnóstico rápido</button>
           <button class="btn ghost" id="ctaAg">Agendar cita</button>
@@ -170,10 +171,11 @@
 
   <main class="wrap grid">
     <section>
+      <!-- DIAGNÓSTICO -->
       <article id="route-diagnostico" class="card reveal" aria-labelledby="tit-dx">
-        <h2 id="tit-dx">Diagnóstico rápido con IA</h2>
+        <h2 id="tit-dx">Diagnóstico con IA: empieza por el síntoma</h2>
+        <p class="intro">Cuéntanos qué notas (ruido, vibración, pedal esponjoso, pérdida de presión de aire, patinaje de clutch). Te daremos una <strong>sugerencia de servicio</strong> con <strong>tiempo</strong> y <strong>rango de costo</strong>. *No sustituye la inspección física.*</p>
         <div class="body">
-          <p class="muted">Cuéntanos qué notas en tu unidad. Te daremos una sugerencia de servicio con tiempo y rango de costo. *No sustituye la revisión física.*</p>
           <form id="form-dx" autocomplete="on">
             <div class="row">
               <div class="field">
@@ -232,8 +234,10 @@
         </div>
       </article>
 
+      <!-- AGENDAR -->
       <article id="route-agendar" class="card reveal hidden" aria-labelledby="tit-ag">
-        <h2 id="tit-ag">Agendar cita</h2>
+        <h2 id="tit-ag">Agenda tu cita: elegimos fecha y hora</h2>
+        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Te enviaremos el registro por WhatsApp y correo. Si tienes urgencia, contáctanos por el botón verde de WhatsApp.</p>
         <div class="body">
           <form id="form-ag" autocomplete="on">
             <div class="row">
@@ -269,10 +273,11 @@
         </div>
       </article>
 
+      <!-- FAQ -->
       <article id="route-faq" class="card reveal hidden" aria-labelledby="tit-fq">
-        <h2 id="tit-fq">Dudas frecuentes</h2>
+        <h2 id="tit-fq">Centro de ayuda & FAQ</h2>
+        <p class="intro">Encuentra respuestas rápidas sobre <strong>clutch, frenos y aire</strong>. Tip: busca con palabras clave como “balatas”, “pedal”, “presión de aire”. Si no ves tu duda, escríbenos por WhatsApp.</p>
         <div class="body">
-          <p class="muted">Busca respuestas sobre clutch, frenos y aire. Próximamente: búsqueda semántica con IA.</p>
           <div class="row">
             <div class="field"><input id="faqQuery" placeholder="Ej.: ¿cada cuándo cambio balatas?" /></div>
             <div class="actions"><button class="btn" id="faqSearch">Buscar</button></div>
@@ -281,26 +286,27 @@
         </div>
       </article>
 
+      <!-- SOBRE NOSOTROS -->
       <article id="route-nosotros" class="card reveal hidden" aria-labelledby="tit-nos">
-        <h2 id="tit-nos">Sobre nosotros</h2>
+        <h2 id="tit-nos">Sobre LAGGER: experiencia que da confianza</h2>
+        <p class="intro">Somos especialistas en <strong>clutch, frenos y sistemas de aire</strong> para transporte pesado y ligero. Ofrecemos comunicación clara, procesos documentados y <strong>garantía escrita</strong>.</p>
         <div class="body">
-          <p class="muted">Somos un taller especializado en <strong>clutch, frenos y sistemas de aire</strong> para transporte pesado y ligero. Trabajamos con estándares de calidad, comunicación clara y <strong>garantía escrita</strong>.</p>
           <div class="row">
             <div class="field">
               <label>¿Por qué elegirnos?</label>
               <ul class="muted" style="margin:0; padding-left:18px; line-height:1.8">
-                <li><strong>Experiencia</strong> en transporte pesado y ligero.</li>
-                <li><strong>Eficiencia</strong> y puntualidad para reducir tiempos fuera de ruta.</li>
-                <li><strong>Refacciones confiables</strong> y procesos documentados.</li>
-                <li><strong>Mantenimiento preventivo</strong> planificado.</li>
+                <li><strong>Experiencia real</strong> en tractos, camiones y unidades ligeras.</li>
+                <li><strong>Tiempo fuera de ruta</strong> reducido con citas puntuales.</li>
+                <li><strong>Refacciones confiables</strong> y trazabilidad del servicio.</li>
+                <li><strong>Mantenimiento preventivo</strong> planificado por kilometraje.</li>
               </ul>
             </div>
             <div class="field">
               <label>Capacidades & maquinaria</label>
               <ul class="muted" style="margin:0; padding-left:18px; line-height:1.8">
-                <li>Rectificadora de volantes y platos de clutch.</li>
-                <li>Rectificadora de discos y tambores (tractocamión).</li>
-                <li>Pruebas de sistema de aire.</li>
+                <li>Rectificado de volantes y platos de clutch.</li>
+                <li>Rectificado de discos y tambores (tractocamión).</li>
+                <li>Pruebas y diagnóstico de sistema de aire.</li>
               </ul>
             </div>
           </div>
@@ -338,7 +344,7 @@
     </aside>
   </main>
 
-  <!-- Botón flotante de WhatsApp (reemplaza el número si gustas) -->
+  <!-- Botón flotante de WhatsApp -->
   <a class="wa-fab" id="waFab"
      href="https://wa.me/525575154446?text=Hola%20LAGGER%2C%20vengo%20de%20la%20web.%20Quiero%20informes%20y%20agendar%20cita."
      target="_blank" rel="noopener">
@@ -349,7 +355,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite" style="display:none"></div>
 
   <footer class="wrap">
-    <small>© LAGGER. Mini web/app para demo de diplomado. <code>v3.1</code></small>
+    <small>© LAGGER. Especialistas Clutch y Frenos. <code>v3.2</code></small>
   </footer>
 
   <script>
@@ -437,8 +443,12 @@
     $('#btnToDx')?.addEventListener('click',()=>setRoute('#/diagnostico'));
     $('#faqSearch').addEventListener('click', async ()=>{ const q=($('#faqQuery').value||'').trim(); const box=$('#faqResults'); if(!q){ box.classList.add('hidden'); toast('Escribe tu duda.'); return; }
       try{
-        const answers=[{q:'¿Cada cuándo cambio balatas?', a:'En transporte pesado suele recomendarse cada 20,000–40,000 km según uso y carga. Validar con inspección visual.'},{q:'¿Qué hago si el pedal está esponjoso?', a:'Puede ser aire en el sistema o fuga de líquido. Evita circular y agenda revisión.'}];
-        box.innerHTML=`<ul>${answers.map(x=>`<li style="margin:8px 0"><strong>${x.q}:</strong> <span class="muted">${x.a}</span></li>`).join('')}</ul>`; box.classList.remove('hidden');
+        const answers=[
+          {q:'¿Cada cuándo cambio balatas?', a:'En transporte pesado suele recomendarse cada 20,000–40,000 km según uso y carga. Validar con inspección visual.'},
+          {q:'¿Qué hago si el pedal está esponjoso?', a:'Puede ser aire en el sistema o fuga de líquido. Evita circular y agenda revisión.'}
+        ];
+        box.innerHTML=`<ul>${answers.map(x=>`<li style="margin:8px 0"><strong>${x.q}:</strong> <span class="muted">${x.a}</span></li>`).join('')}</ul>`;
+        box.classList.remove('hidden');
       }catch(err){ console.error(err); toast('No se pudo buscar en FAQ.'); }
     });
 
@@ -451,3 +461,4 @@
   </script>
 </body>
 </html>
+
