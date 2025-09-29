@@ -39,10 +39,13 @@
     .wrap{max-width:1200px; margin:0 auto; padding:14px 18px; position:relative; z-index:1}
 
     .brand{display:flex; align-items:center; gap:12px}
-    .logo-img <img class="logo-img" 
-     src="https://github.com/user-attachments/assets/6ca03c36-459b-4f32-ac6e-dfc72452b70b" 
-     alt="LAGGER logo">
-{width:46px; height:46px; object-fit:contain; border-radius:10px; background:#0f141f; border:1px solid rgba(255,255,255,.08); padding:6px; box-shadow:0 6px 24px rgba(255,59,48,.15)}
+    /* FIX: bloque correcto del logo */
+    .logo-img{
+      width:46px; height:46px; object-fit:contain;
+      border-radius:10px; background:#0f141f;
+      border:1px solid rgba(255,255,255,.08);
+      padding:6px; box-shadow:0 6px 24px rgba(255,59,48,.15)
+    }
     .brand h1{margin:0; font-size:20px; letter-spacing:.3px}
 
     nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
@@ -138,7 +141,7 @@
   <header>
     <div class="wrap">
       <div class="brand">
-        <img class="logo-img" src="LOGO_URL" alt="LAGGER logo">
+        <img class="logo-img" src="https://drive.google.com/uc?export=view&id=1hi9qfyl9Zz3DvtLxJiEM5c93WWjfazk4" alt="LAGGER logo">
         <h1>LAGGER · Especialistas en Clutch y Frenos</h1>
       </div>
       <nav aria-label="Secciones">
@@ -168,7 +171,7 @@
         </div>
       </div>
       <div class="hero-ill">
-        <img id="heroImg" src="HERO_IMG_URL" alt="LAGGER — clutch, frenos y aire">
+        <img id="heroImg" src="https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo" alt="LAGGER — clutch, frenos y aire">
       </div>
     </div>
   </section>
@@ -226,7 +229,7 @@
       <!-- AGENDAR -->
       <article id="route-agendar" class="card reveal hidden" aria-labelledby="tit-ag">
         <h2 id="tit-ag">Agenda tu cita: elegimos fecha y hora</h2>
-        <p class="intro">Elige el <strong>servicio</strong> y confirma la <strong>fecha y hora</strong>. Si necesitas ayuda, vuelve a Diagnóstico o escríbenos por WhatsApp.</p>
+        <p class="intro">Elige el <strong>serivcio</strong> y confirma la <strong>fecha y hora</strong>. Si necesitas ayuda, vuelve a Diagnóstico o escríbenos por WhatsApp.</p>
         <div class="body">
           <form id="form-ag" autocomplete="on">
             <div class="row">
@@ -323,9 +326,9 @@
             </div>
           </div>
           <div class="gallery" aria-label="Galería">
-            <img src="IMG_URL_1" alt="Taller LAGGER">
-            <img src="IMG_URL_2" alt="Equipo técnico en acción">
-            <img src="IMG_URL_3" alt="Servicios de clutch y frenos">
+            <img src="https://drive.google.com/uc?export=view&id=1fSK1jJPSswpJ9NAwMG01liwuSJdb8hjp" alt="Taller LAGGER">
+            <img src="https://drive.google.com/uc?export=view&id=1pyibXq4tURIn0VviqVf8QEU81Pnrto-f" alt="Servicio de frenos LAGGER">
+            <img src="https://drive.google.com/uc?export=view&id=1TSVP8S8e8wxSzaVx8Ja5ov7Jl2As0ys6" alt="Servicio de clutch LAGGER">
           </div>
         </div>
       </article>
@@ -381,35 +384,35 @@
         title: 'Mantén tu unidad trabajando, sin sorpresas',
         text: 'Diagnóstico claro, citas confirmadas y atención experta en <strong>clutch, frenos y aire</strong> para transporte pesado y ligero.',
         kpis: true,
-        img: 'HERO_IMG_URL',
+        img: 'https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo',
         buttons: [{id:'ctaDx', label:'Diagnóstico rápido', kind:'solid'}, {id:'ctaAg', label:'Agendar cita', kind:'ghost'}]
       },
       '#/diagnostico': {
         title: 'Diagnóstico inmediato según el síntoma',
         text: 'Indica el síntoma y obtén posibles fallas, causa probable, tiempo estimado y rango de costo.',
         kpis: true,
-        img: 'HERO_IMG_URL',
+        img: 'https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo',
         buttons: [{id:'ctaDx', label:'Ir a Diagnóstico', kind:'solid'}, {id:'ctaAg', label:'Agendar cita', kind:'ghost'}]
       },
       '#/agendar': {
         title: 'Agenda tu servicio en minutos',
         text: 'Elige servicio, fecha y hora. Te confirmamos por WhatsApp y correo.',
         kpis: false,
-        img: 'HERO_IMG_URL',
+        img: 'https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo',
         buttons: [{id:'ctaAg', label:'Agendar ahora', kind:'solid'}, {id:'ctaDx', label:'Necesito diagnóstico', kind:'ghost'}]
       },
       '#/faq': {
         title: 'Centro de ayuda y preguntas frecuentes',
         text: 'Encuentra respuestas usando palabras clave como <em>balatas</em>, <em>pedal</em> o <em>presión de aire</em>.',
         kpis: false,
-        img: 'HERO_IMG_URL',
+        img: 'https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo',
         buttons: [{id:'ctaDx', label:'Ir a Diagnóstico', kind:'solid'}, {id:'ctaAg', label:'Agendar', kind:'ghost'}]
       },
       '#/nosotros': {
         title: 'Sobre LAGGER: experiencia que da confianza',
         text: 'Especialistas en clutch, frenos y aire. Procesos claros y garantía escrita.',
         kpis: false,
-        img: 'HERO_IMG_URL',
+        img: 'https://drive.google.com/uc?export=view&id=1t6xiJtCjua_H-5DRxCKaHHAH006uCJVo',
         buttons: [{id:'ctaAg', label:'Agendar cita', kind:'solid'}]
       }
     };
